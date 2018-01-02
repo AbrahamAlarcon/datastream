@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: datastream
+
+product:
+  name: DataStream
+  vendorName: Abraham Alarcon
+  version: 1.0
+  contactEmail: abraham.alarcon@gmail.com
+  title: DataStore Abraham.Alarcon-Org
+  description: Privately accessible RESTful for showing data store based design for APIs.
+  termsOfServiceUrl:
