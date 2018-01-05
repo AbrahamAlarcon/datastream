@@ -47,7 +47,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @EnableScheduling
 @PropertySources({
-        @PropertySource("classpath:environment.properties.${springprofilesactive}")
+        @PropertySource("classpath:environment.properties.${spring.profiles.active}")
 })
 @ConfigurationProperties(prefix = "server", ignoreUnknownFields = true)
 @EnableCircuitBreaker
