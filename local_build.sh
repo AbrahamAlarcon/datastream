@@ -11,8 +11,24 @@ export MAVEN_HOME JAVA_HOME PATH
 java -version
 mvn -version
 
+#JVM attributes
+JAVA_HEAP_XMX=100m
+JAVA_HEAP_XMS=100m
+CMS_INIT_OCCUPANCY_FRACTION=70
+SERVER_PORT=8000
+DEBUG_PORT=5000
+LOGGING_PATH=C:/logs/$APP_NAME
+GC_LOG=$LOGGING_PATH/gc-%t.log
+GC_CLIENT_GC_INTERVAL=600000
+GC_NUM_OF_GCLOG_FILES=5
+GC_LOG_FILE_SIZE=10M
+HEAP_DUMP_FILE=$LOGGING_PATH/dump-%t.hprof
+INETADDR_TTL=60
+PEERS="-Dpeer1=localhost:8761 -Dpeer2=localhost:8762"
+WEATHER_KEY=066631e4c9e41f5a
+
 SKIP=$1
-mvn clean package $SKIP
+mvn clean package $SKIP -Dweather.key=${WEATHER_KEY}
 
 if [ $? = 0 ] ; then
   echo "Build successful"
@@ -34,21 +50,6 @@ if [[ "$old_pid" != ""  ]]; then
    exit -1
 fi
 
-#JVM attributes
-JAVA_HEAP_XMX=100m
-JAVA_HEAP_XMS=100m
-CMS_INIT_OCCUPANCY_FRACTION=70
-SERVER_PORT=8000
-DEBUG_PORT=5000
-LOGGING_PATH=C:/logs/$APP_NAME
-GC_LOG=$LOGGING_PATH/gc-%t.log
-GC_CLIENT_GC_INTERVAL=600000
-GC_NUM_OF_GCLOG_FILES=5
-GC_LOG_FILE_SIZE=10M
-HEAP_DUMP_FILE=$LOGGING_PATH/dump-%t.hprof
-INETADDR_TTL=60
-PEERS="-Dpeer1=localhost:8761 -Dpeer2=localhost:8762"
-WEATHER_KEY=066631e4c9e41f5a
 
 #nohup
 #java -Dapp.name=${APP_NAME} -Dweather.key=${WEATHER_KEY} -Dspring.profiles.active=${ENV} ${PEERS} -Xmx${JAVA_HEAP_XMX} -Xms${JAVA_HEAP_XMS} -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=${CMS_INIT_OCCUPANCY_FRACTION} -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Xloggc:${GC_LOG} -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=${GC_NUM_OF_GCLOG_FILES} -XX:GCLogFileSize=${GC_LOG_FILE_SIZE} -Dsun.rmi.dgc.client.gcInterval=${GC_CLIENT_GC_INTERVAL} -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${HEAP_DUMP_FILE} -Dsun.net.inetaddr.ttl=${INETADDR_TTL} -Dserver.port=${SERVER_PORT} -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar ${APPLICATION_EXECUTABLE}
