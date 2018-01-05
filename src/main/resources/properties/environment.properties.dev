@@ -8,7 +8,7 @@ logging.threadPoolTaskExecutor.queueCapacity: 500
 #eureka.client.serviceUrl.defaultZone: https://${peer1}/eureka/,https://${peer2}/eureka/
 
 # Weather Rest connection
-weather.url: http://api.wunderground.com/api/${weather.key}
+weather.url: http://api.wunderground.com/api/${weatherkey}
 weather.retry.policy.maxAttempts: 3
 weather.retry.policy.backOffPeriodMillis: 5000
 hystrix.command.weather.execution.isolation.thread.timeoutInMilliseconds: 2000
