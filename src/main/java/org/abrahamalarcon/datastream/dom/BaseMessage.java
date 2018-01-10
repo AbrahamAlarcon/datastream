@@ -1,4 +1,4 @@
-package org.abrahamalarcon.datastream.dom.request;
+package org.abrahamalarcon.datastream.dom;
 
 import org.apache.commons.lang.StringUtils;
 

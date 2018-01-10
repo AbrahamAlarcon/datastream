@@ -1,7 +1,7 @@
 package org.abrahamalarcon.datastream.service;
 
 import org.abrahamalarcon.datastream.dao.WeatherDAO;
-import org.abrahamalarcon.datastream.dom.request.DatastoreMessage;
+import org.abrahamalarcon.datastream.dom.DatastoreMessage;
 import org.abrahamalarcon.datastream.dom.response.DatastoreResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

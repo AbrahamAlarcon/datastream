@@ -28,7 +28,7 @@ PEERS="-Dpeer1=localhost:8761 -Dpeer2=localhost:8762"
 WEATHER_KEY=066631e4c9e41f5a
 
 SKIP=$1
-mvn clean package $SKIP -Dweather.key=${WEATHER_KEY}
+mvn clean package ${SKIP} -Dweather.key=${WEATHER_KEY}
 
 if [ $? = 0 ] ; then
   echo "Build successful"

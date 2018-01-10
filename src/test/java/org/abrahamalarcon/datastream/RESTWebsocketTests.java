@@ -2,7 +2,7 @@ package org.abrahamalarcon.datastream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.abrahamalarcon.datastream.dom.request.DatastoreMessage;
+import org.abrahamalarcon.datastream.dom.DatastoreMessage;
 import org.abrahamalarcon.datastream.dom.response.DatastoreResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -67,7 +67,7 @@ public class RESTWebsocketTests
         stompSession.subscribe(subscribeClientEvents, new DatastoreResponseStompFrameHandler());
         System.out.println("\nSubscribe to channel: " + subscribeClientEvents);
 
-        String sendToNotifymeEndpoint = String.format("/stream/notifyme/%s/%s/%s", clientId, eventId, "%s");
+        String sendToNotifymeEndpoint = String.format("/app/notifyme/%s/%s/%s", clientId, eventId, "%s");
 
         DatastoreMessage message1 = new DatastoreMessage();
         message1.setCity("Santiago");

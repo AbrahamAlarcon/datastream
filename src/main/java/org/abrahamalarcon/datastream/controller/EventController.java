@@ -10,19 +10,31 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+import java.util.logging.Logger;
+
 @Controller
-public class WebsocketController
+public class EventController
 {
+    private static Logger logger = Logger.getLogger(EventController.class.getName());
+
     @Autowired SimpMessageSendingOperations messagingTemplate;
     @Autowired DatastoreService datastoreService;
 
-    @MessageMapping("/notifyme/{clientId}/{eventId}/{uuid}")
-    public void subscribeToEvent(@DestinationVariable String clientId,
+    /**
+     * Any client can send a new event into the subscription queue
+     * @param clientId
+     * @param eventId
+     * @param uuid
+     * @param message
+     * @throws Exception
+     */
+    @MessageMapping("/newevent/{clientId}/{eventId}/{uuid}")
+    public void sendNew(@DestinationVariable String clientId,
                                  @DestinationVariable String eventId,
                                  @DestinationVariable String uuid,
                                  @Payload DatastoreMessage message) throws Exception
     {
-        String toReply = "/queue/" + clientId + "/" + eventId;
+        String toReply = String.format("/queue/subscription/%s/%s", clientId, eventId);
         try
         {
             DatastoreResponse response = datastoreService.pull(message, eventId);

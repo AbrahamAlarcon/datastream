@@ -1,4 +1,4 @@
-package org.abrahamalarcon.datastream.dom.request;
+package org.abrahamalarcon.datastream.dom;
 
 public class DatastoreMessage extends BaseMessage
 {
