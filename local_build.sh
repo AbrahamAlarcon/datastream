@@ -28,7 +28,7 @@ PEERS="-Dpeer1=localhost:8761 -Dpeer2=localhost:8762"
 WEATHER_KEY=066631e4c9e41f5a
 
 SKIP=$1
-mvn clean package ${SKIP} -Dweather.key=${WEATHER_KEY}
+mvn clean package ${SKIP} -Dweather.key=${WEATHER_KEY} -Dexposed.route.hostname=localhost -Dexposed.route.port=${SERVER_PORT}
 
 if [ $? = 0 ] ; then
   echo "Build successful"
@@ -55,4 +55,4 @@ fi
 #java -Dapp.name=${APP_NAME} -Dweather.key=${WEATHER_KEY} -Dspring.profiles.active=${ENV} ${PEERS} -Xmx${JAVA_HEAP_XMX} -Xms${JAVA_HEAP_XMS} -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=${CMS_INIT_OCCUPANCY_FRACTION} -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Xloggc:${GC_LOG} -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=${GC_NUM_OF_GCLOG_FILES} -XX:GCLogFileSize=${GC_LOG_FILE_SIZE} -Dsun.rmi.dgc.client.gcInterval=${GC_CLIENT_GC_INTERVAL} -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${HEAP_DUMP_FILE} -Dsun.net.inetaddr.ttl=${INETADDR_TTL} -Dserver.port=${SERVER_PORT} -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar ${APPLICATION_EXECUTABLE}
 #>/dev/null 2>&1 </dev/null &
 
-java -Dapp.name=${APP_NAME} -Dweather.key=${WEATHER_KEY} -Dspring.profiles.active=${ENV} ${PEERS} -Xmx${JAVA_HEAP_XMX} -Xms${JAVA_HEAP_XMS} -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=${CMS_INIT_OCCUPANCY_FRACTION} -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dsun.net.inetaddr.ttl=${INETADDR_TTL} -Dserver.port=${SERVER_PORT} -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar ${APPLICATION_EXECUTABLE}
+java -Dexposed.route.hostname=localhost -Dexposed.route.port=${SERVER_PORT} -Dapp.name=${APP_NAME} -Dweather.key=${WEATHER_KEY} -Dspring.profiles.active=${ENV} ${PEERS} -Xmx${JAVA_HEAP_XMX} -Xms${JAVA_HEAP_XMS} -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=${CMS_INIT_OCCUPANCY_FRACTION} -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dsun.net.inetaddr.ttl=${INETADDR_TTL} -Dserver.port=${SERVER_PORT} -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n -jar ${APPLICATION_EXECUTABLE}

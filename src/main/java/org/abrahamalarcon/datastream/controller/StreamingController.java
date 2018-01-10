@@ -3,6 +3,7 @@ package org.abrahamalarcon.datastream.controller;
 import org.abrahamalarcon.datastream.dom.SubscriptionMessage;
 import org.abrahamalarcon.datastream.service.DatastoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -34,6 +35,12 @@ public class StreamingController
     @Autowired SimpMessageSendingOperations messagingTemplate;
     @Autowired DatastoreService datastoreService;
 
+    @Value("${exposed.route.hostname}")
+    private String host;
+
+    @Value("${exposed.route.port}")
+    private int port;
+
     private ListenableFuture<StompSession> connect()
     {
         Transport webSocketTransport = new WebSocketTransport(new StandardWebSocketClient());
@@ -47,7 +54,7 @@ public class StreamingController
         String url = "ws://{host}:{port}/ws";
         WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
 
-        return stompClient.connect(url, headers, new MyHandler(), "localhost", 8000);
+        return stompClient.connect(url, headers, new MyHandler(), host, port);
     }
 
     private class MyHandler extends StompSessionHandlerAdapter
