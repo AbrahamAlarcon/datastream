@@ -22,8 +22,8 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic", "/queue", "/stream");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic", "/queue", "/instream", "/outstream");
+        config.setApplicationDestinationPrefixes("/app", "/subscription");
     }
 
     @Override

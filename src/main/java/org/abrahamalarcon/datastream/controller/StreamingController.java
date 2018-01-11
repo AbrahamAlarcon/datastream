@@ -68,12 +68,12 @@ public class StreamingController
     /**
      * Client must create a subscription, indicating the output required (graphql)
      */
-    @MessageMapping("/subscription/{clientId}/{eventId}")
+    @MessageMapping("/{clientId}/{eventId}")
     public void subscribeToEvent(@DestinationVariable String clientId,
                                  @DestinationVariable String eventId,
                                  @Payload SubscriptionMessage message) throws Exception
     {
-        String toReply = String.format("/stream/in/%s/%s", clientId, eventId);
+        String toReply = String.format("/instream/%s/%s", clientId, eventId);
         String toSubscribe = String.format("/queue/subscription/%s/%s", clientId, eventId);
         try
         {
