@@ -1,6 +1,5 @@
 package org.abrahamalarcon.datastream.controller;
 
-import org.abrahamalarcon.datastream.dom.SubscriptionMessage;
 import org.abrahamalarcon.datastream.service.DatastoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +27,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
-public class StreamingController
+public class SubscriptionController
 {
-    private static Logger logger = Logger.getLogger(StreamingController.class.getName());
+    private static Logger logger = Logger.getLogger(SubscriptionController.class.getName());
 
     @Autowired SimpMessageSendingOperations messagingTemplate;
     @Autowired DatastoreService datastoreService;
@@ -71,7 +70,7 @@ public class StreamingController
     @MessageMapping("/{clientId}/{eventId}")
     public void subscribeToEvent(@DestinationVariable String clientId,
                                  @DestinationVariable String eventId,
-                                 @Payload SubscriptionMessage message) throws Exception
+                                 @Payload String subscription) throws Exception
     {
         String toReply = String.format("/instream/%s/%s", clientId, eventId);
         String toSubscribe = String.format("/queue/subscription/%s/%s", clientId, eventId);
